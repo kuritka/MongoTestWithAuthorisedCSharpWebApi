@@ -5,6 +5,7 @@ using MongoTest2.Model;
 using MongoTest2.Model.Repositories;
 using MongoTest2.Model.Entities;
 using Newtonsoft.Json;
+using MongoDB.Bson;
 
 namespace MongoTest2.Controllers
 {
@@ -48,7 +49,7 @@ namespace MongoTest2.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
-            _noteRepository.AddNote(new Note() { Body = value, CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now });
+            _noteRepository.AddNote(new Note() { Body = value, CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now   }); //, Id = ObjectId.GenerateNewId().ToString()  });
         }
 
         // PUT api/notes/5

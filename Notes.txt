@@ -3,7 +3,24 @@
 https://www.codeproject.com/Articles/1151842/Using-MongoDB-NET-Driver-with-NET-Core-WebAPI
 
 
-under admin run this: "c:\Program Files\MongoDB\Server\3.4\bin\mongod.exe --config C:\Temp\MongoTest2\_Database\mongod.cfg"
+under admin run this: "c:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --config C:\Temp\MongoTestWithAuthorisedCSharpWebApi\_Database\mongod.cfg
+
+TEST:
+
+  send POST to localhost:5000/api/notes with headers: Content-Type = application/json and body: "BLAAAH"
+
+
+
+use admin
+db.createUser(
+  {
+	user: "admin",
+	pwd: "abc123!",
+	roles: [ { role: "root", db: "admin" } ]
+  }
+);
+exit;
+
 
 todo: tree structure, zatim pocitame jen "string" : "string"
 
