@@ -1,0 +1,39 @@
+
+
+https://www.codeproject.com/Articles/1151842/Using-MongoDB-NET-Driver-with-NET-Core-WebAPI
+
+
+under admin run this: "c:\Program Files\MongoDB\Server\3.4\bin\mongod.exe --config C:\Temp\MongoTest2\_Database\mongod.cfg"
+
+todo: tree structure, zatim pocitame jen "string" : "string"
+
+ "SectionA"{
+     key1: 1,
+     key2: value21,
+     key3: [
+                value1: 1,
+                value2: 1,
+                value3: 1,
+           ],
+
+         key4: {
+            key1: 1,
+            key2: value21,
+            key3: [
+                {
+                    value1: 1,
+                    value2: 2,
+                    value3: 3,
+                },
+                {
+                    value1: 1,
+                    value2: 2,
+                    value3: 3,
+                }
+           ]
+    }
+ },
+ "SectionB":{}
+
+
++ potrebujeme aby CRUD bylo pouze pro nasi .net app)  a R bylo pro vsechny CORS, resp pouze web kde to bude pouzito 
