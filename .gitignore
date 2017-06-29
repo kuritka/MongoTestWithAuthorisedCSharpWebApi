@@ -232,3 +232,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# FAKE - Datatbase
+_Database/mongodb/db/data/*.*
