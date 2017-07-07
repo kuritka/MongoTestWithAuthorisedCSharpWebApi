@@ -6,10 +6,12 @@ using MongoTest2.Model.Repositories;
 using MongoTest2.Model.Entities;
 using Newtonsoft.Json;
 using MongoDB.Bson;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MongoTest2.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/[controller]")]    
     public class NotesController : Controller
     {
         private readonly INoteRepository _noteRepository;

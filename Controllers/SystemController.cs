@@ -23,13 +23,13 @@ namespace MongoTest2.Controllers
                 if (setting == "init")
                 {
                     _noteRepository.RemoveAllNotes();
-                    _noteRepository.AddNote(new Note() { Id = "1", Body = "Test note 1", 
+                    _noteRepository.AddNote(new Note() {  Body = "Test note 1", 
                                 CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 1 });
-                    _noteRepository.AddNote(new Note() { Id = "2", Body = "Test note 2", 
+                    _noteRepository.AddNote(new Note() {  Body = "Test note 2", 
                                 CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 1 });
-                    _noteRepository.AddNote(new Note() { Id = "3", Body = "Test note 3", 
+                    _noteRepository.AddNote(new Note() { Body = "Test note 3", 
                                 CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 2 });
-                    _noteRepository.AddNote(new Note() { Id = "4", Body = "Test note 4", 
+                    _noteRepository.AddNote(new Note() { Body = "Test note 4", 
                                 CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 2 });
 
                     return "Done";
