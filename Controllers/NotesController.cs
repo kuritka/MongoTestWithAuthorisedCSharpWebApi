@@ -1,16 +1,16 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoTest2.Model;
-using MongoTest2.Model.Repositories;
-using MongoTest2.Model.Entities;
+using MongoTest2.Data;
+using MongoTest2.Data.Repositories;
+using MongoTest2.Data.Entities;
 using Newtonsoft.Json;
 using MongoDB.Bson;
 using Microsoft.AspNetCore.Authorization;
 
 namespace MongoTest2.Controllers
 {
-    [Authorize]
+//    [Authorize]
     [Route("api/[controller]")]    
     public class NotesController : Controller
     {

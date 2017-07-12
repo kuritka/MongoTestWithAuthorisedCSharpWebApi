@@ -12,9 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoTest2.Infrastructure;
-using MongoTest2.Model;
-using MongoTest2.Model.Entities;
-using MongoTest2.Model.Repositories;
+using MongoTest2.Data;
+using MongoTest2.Data.Entities;
+using MongoTest2.Data.Repositories;
+using MongoTest2.Data.Seeding;
 
 
 namespace MongoTest2
@@ -41,8 +42,11 @@ namespace MongoTest2
                                   }); 
 
             services.AddMvc();
-
+            services.AddTransient<NoteContext>();
             services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IdentitySeed>();
+            services.AddTransient<ISignInManager,SignInManager>();
 
             services.Configure<Settings>(options =>
             {

@@ -6,9 +6,10 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoTest2.Infrastructure;
-using MongoTest2.Model.Entities;
+using MongoTest2.Data.Entities;
+using MongoTest2.Data;
 
-namespace MongoTest2.Model.Repositories
+namespace MongoTest2.Data.Repositories
 {
     public class NoteRepository : INoteRepository
     {

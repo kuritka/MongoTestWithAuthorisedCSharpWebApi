@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoTest2.Infrastructure;
-using MongoTest2.Model.Entities;
+using MongoTest2.Data.Entities;
 
-namespace MongoTest2.Model
+namespace MongoTest2.Data
 {
 
    public class NoteContext
@@ -24,6 +24,17 @@ namespace MongoTest2.Model
                 return _database.GetCollection<Note>("Note");
             }
         }
+
+
+
+        public IMongoCollection<ApplicationUser> Users
+        {
+            get
+            {
+               return  _database.GetCollection<ApplicationUser>("User");
+            }
+        }
+
     }
 
 }

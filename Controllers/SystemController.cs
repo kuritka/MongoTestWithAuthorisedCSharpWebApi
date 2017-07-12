@@ -1,8 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using MongoTest2.Model;
-using MongoTest2.Model.Entities;
-using MongoTest2.Model.Repositories;
+using MongoTest2.Data;
+using MongoTest2.Data.Entities;
+using MongoTest2.Data.Repositories;
+using MongoTest2.Data.Seeding;
 
 namespace MongoTest2.Controllers
 {
@@ -11,9 +12,12 @@ namespace MongoTest2.Controllers
         {
             private readonly INoteRepository _noteRepository;
 
-            public SystemController(INoteRepository noteRepository)
+            private readonly  IdentitySeed _identitySeed;
+
+            public SystemController(INoteRepository noteRepository, IdentitySeed identitySeed)
             {
                 _noteRepository = noteRepository;
+                _identitySeed = identitySeed;
             }
 
             // Call an initialization - api/system/init
@@ -31,6 +35,9 @@ namespace MongoTest2.Controllers
                                 CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 2 });
                     _noteRepository.AddNote(new Note() { Body = "Test note 4", 
                                 CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 2 });
+
+
+                    _identitySeed.Seed(true);
 
                     return "Done";
                 }
