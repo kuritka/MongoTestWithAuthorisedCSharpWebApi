@@ -16,7 +16,7 @@ using MongoTest2.Data;
 using MongoTest2.Data.Entities;
 using MongoTest2.Data.Repositories;
 using MongoTest2.Data.Seeding;
-
+using MongoTest2.Infrastructure.Crypto;
 
 namespace MongoTest2
 {
@@ -45,6 +45,7 @@ namespace MongoTest2
             services.AddTransient<NoteContext>();
             services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICryptoStrategy, EmptyCryptoStrategy>();
             services.AddTransient<IdentitySeed>();
             services.AddTransient<ISignInManager,SignInManager>();
 
