@@ -47,7 +47,7 @@ namespace MongoTest2
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICryptoStrategy, EmptyCryptoStrategy>();
             services.AddTransient<IdentitySeed>();
-            services.AddTransient<ISignInManager,SignInManager>();
+            services.AddTransient<Infrastructure.Crypto.ISignInManager, Infrastructure.Crypto.SignInManager>();
 
             services.Configure<Settings>(options =>
             {
