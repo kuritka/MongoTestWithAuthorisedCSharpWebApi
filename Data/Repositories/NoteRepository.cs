@@ -14,11 +14,11 @@ namespace MongoTest2.Data.Repositories
     public class NoteRepository : INoteRepository
     {
 
-        private readonly NoteContext _context = null;
+        private readonly DatabaseContext _context = null;
 
         public NoteRepository(IOptions<Settings> settings)
         {
-            _context = new NoteContext(settings);
+            _context = new DatabaseContext(settings);
         }
 
         public async Task<IEnumerable<Note>> GetAllNotes()

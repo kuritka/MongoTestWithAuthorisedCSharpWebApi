@@ -13,11 +13,11 @@ namespace MongoTest2.Data.Repositories
 
     public class UserRepository : IUserRepository
     {
-        private readonly NoteContext _context = null;
+        private readonly DatabaseContext _context = null;
 
         public UserRepository(IOptions<Settings> settings)
         {
-            _context = new NoteContext(settings);
+            _context = new DatabaseContext(settings);
         }
 
 
@@ -33,21 +33,15 @@ namespace MongoTest2.Data.Repositories
 
         public async Task<ApplicationUser> GetUser(string id)
         {
-            var filter = Builders<ApplicationUser>.Filter.Eq("UserName", id);
-            return await _context.Users
-                                .Find(filter)
-                                .FirstOrDefaultAsync();
+            var filter = Builders<ApplicationUser>.Filter.Eq("Id", id);
+            return await _context.Users.Find(filter).FirstOrDefaultAsync();
         }
-
 
         public async Task<ApplicationUser> GetByName(string userName)
         {
             var filter = Builders<ApplicationUser>.Filter.Eq("UserName", userName);
-            return await _context.Users
-                                .Find(filter)
-                                .FirstOrDefaultAsync();
+            return await _context.Users.Find(filter).FirstOrDefaultAsync();
         }
-
 
         public async Task<DeleteResult> RemoveAllUsers()
         {

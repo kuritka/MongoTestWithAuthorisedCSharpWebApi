@@ -11,12 +11,12 @@ namespace MongoTest2.Infrastructure
     public class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>
     {
 
-        private readonly NoteContext _context;
+        private readonly DatabaseContext _context;
 
         //public class CustomUserStore : UserStore<ApplicationUser, ApplicationRole, MyContext, Guid>
         //{
 
-        public CustomUserStore(NoteContext context)
+        public CustomUserStore(DatabaseContext context)
         {
             _context = context;
         }

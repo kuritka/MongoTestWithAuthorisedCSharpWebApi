@@ -15,16 +15,12 @@ namespace MongoTest2.Controllers
 
     public class AuthController : Controller 
     {
-    //    private readonly MongoTest2.Infrastructure.Crypto.ISignInManager _signInManager;
-        
         private readonly SignInManager<ApplicationUser> _signInManager;
-
 
         private readonly IUserRepository _userRepository;
 
-
-
-        public AuthController(IUserRepository userRepository
+        public AuthController(
+            IUserRepository userRepository
             , Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> signInManager
             )
         {
@@ -57,6 +53,18 @@ namespace MongoTest2.Controllers
             }
             return BadRequest("Failed Login");
         }
+
+
+
+
+        [HttpGet("api/auth/logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok("Signed out");
+        }
+
     } 
 }
 

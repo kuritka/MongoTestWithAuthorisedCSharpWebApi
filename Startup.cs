@@ -17,6 +17,7 @@ using MongoTest2.Data.Entities;
 using MongoTest2.Data.Repositories;
 using MongoTest2.Data.Seeding;
 using MongoTest2.Infrastructure.Crypto;
+using Microsoft.AspNetCore.Http;
 
 namespace MongoTest2
 {
@@ -34,28 +35,34 @@ namespace MongoTest2
         {
 
            
-            services.AddCors(options => { options.AddPolicy("CorsPolicy", 
+            services.AddCors(options => {
+                     options.AddPolicy("CorsPolicy", 
                                       builder => builder.AllowAnyOrigin() 
                                                         .AllowAnyMethod() 
                                                         .AllowAnyHeader() 
                                                         .AllowCredentials()); 
-                                  }); 
+                     options.AddPolicy("AnyGET",
+                                    builder => 
+                                    builder.AllowAnyHeader()
+                                    .WithMethods("GET")
+                                    .AllowAnyOrigin());
+                                   }
+                                  ); 
 
             services.AddMvc();
-            services.AddTransient<NoteContext>();   //AddScoped
+            services.AddTransient<DatabaseContext>();   //AddScoped
             services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICryptoStrategy, EmptyCryptoStrategy>();
             services.AddTransient<IdentitySeed>();
             services.AddTransient<Infrastructure.Crypto.ISignInManager, Infrastructure.Crypto.CryptoSignInManager>();
-         //   services.AddTransient<Microsoft.AspNetCore.Identity.SignInManager<Credentials>>();
-            	
 
             services.Configure<Settings>(options =>
             {
                 options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
                 options.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
+
 
 
             services.AddIdentity<ApplicationUser,IdentityRole>()             
@@ -73,11 +80,12 @@ namespace MongoTest2
             // global policy, if assigned here (it could be defined indvidually for each controller) 
             app.UseCors("CorsPolicy"); 
 
-            app.UseIdentity();            
+            app.UseIdentity();
 
             app.UseMvc();
 
             app.UseStaticFiles();
+
         }
     }
 }

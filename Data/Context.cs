@@ -6,11 +6,11 @@ using MongoTest2.Data.Entities;
 namespace MongoTest2.Data
 {
 
-   public class NoteContext
+   public class DatabaseContext
     {
         private readonly IMongoDatabase _database = null;
 
-        public NoteContext(IOptions<Settings> settings)
+        public DatabaseContext(IOptions<Settings> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
             if (client != null)
