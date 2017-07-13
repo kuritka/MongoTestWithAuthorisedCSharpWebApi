@@ -42,12 +42,14 @@ namespace MongoTest2
                                   }); 
 
             services.AddMvc();
-            services.AddTransient<NoteContext>();
+            services.AddTransient<NoteContext>();   //AddScoped
             services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICryptoStrategy, EmptyCryptoStrategy>();
             services.AddTransient<IdentitySeed>();
-            services.AddTransient<Infrastructure.Crypto.ISignInManager, Infrastructure.Crypto.SignInManager>();
+            services.AddTransient<Infrastructure.Crypto.ISignInManager, Infrastructure.Crypto.CryptoSignInManager>();
+         //   services.AddTransient<Microsoft.AspNetCore.Identity.SignInManager<Credentials>>();
+            	
 
             services.Configure<Settings>(options =>
             {
@@ -56,23 +58,10 @@ namespace MongoTest2
             });
 
 
-            services.AddIdentity<ApplicationUser,IdentityRole>()
-                .RegisterMongoStores<ApplicationUser,IdentityRole>(Configuration.GetSection("MongoConnection:ConnectionString").Value+"/NotesDb");
-
-            // services.Configure<IdentityOptions>(
-            //     config => {
-            //         config.Cookies..Events= 
-            //             new CookieAuthenticationEvents(){
-            //                 OnRedirectToLogin = (ctx) =>{
-            //                     if(ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
-            //                     {
-            //                         ctx.Response.StatusCode = 401;
-            //                     }
-            //                     return Task.CompletedTask;
-            //                 }
-            //             };
-            //     }
-            // );
+            services.AddIdentity<ApplicationUser,IdentityRole>()             
+                .RegisterMongoStores<ApplicationUser,IdentityRole>(Configuration.GetSection("MongoConnection:ConnectionString").Value+"/NotesDb")
+                .AddUserStore<CustomUserStore>()
+                .AddDefaultTokenProviders();
 
 
         }

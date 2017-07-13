@@ -5,29 +5,33 @@ using Microsoft.AspNetCore.Mvc;
 using MongoTest2.Data.Entities;
 using MongoTest2.Data.Repositories;
 using MongoTest2.Infrastructure;
+using MongoTest2.Infrastructure.Crypto;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.MongoDB;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MongoTest2.Controllers
 {
 
     public class AuthController : Controller 
     {
-        private readonly ISignInManager _signInManager;
+    //    private readonly MongoTest2.Infrastructure.Crypto.ISignInManager _signInManager;
+        
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
 
         private readonly IUserRepository _userRepository;
 
-        public AuthController(IUserRepository userRepository, ISignInManager signInManager)
+
+
+        public AuthController(IUserRepository userRepository
+            , Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> signInManager
+            )
         {
             _signInManager = signInManager;
             _userRepository = userRepository;
         }
 
-
-
-        private async Task<bool> SignInAsync(string userName)
-        {
-            var user = await _userRepository.GetUser(userName);
-            return user != null; 
-        }
 
 
         [HttpPost("api/auth/login")]
@@ -37,12 +41,14 @@ namespace MongoTest2.Controllers
             {
                 try
                 {
-                    var result = await _signInManager.SignInAsync(credentials.UserName, credentials.Password);
 
-                    //var result = await _signInManager.PasswordSignInAsync(credentials.UserName, credentials.Password, false,false);
-                    if(result)
+                    var user = await  _userRepository.GetByName(credentials.UserName);
+
+                    if(user != null)
                     {
-                        return Ok();
+                        await _signInManager.SignInAsync(user, false);
+
+                        return Ok("User Authenticated");
                     }
                 }
                 catch(Exception ex){
