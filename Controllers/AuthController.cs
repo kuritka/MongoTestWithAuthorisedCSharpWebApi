@@ -39,7 +39,7 @@ namespace MongoTest2.Controllers
                 {
 
                     var user = await  _userRepository.GetByName(credentials.UserName);
-
+                    
                     if(user != null)
                     {
                         await _signInManager.SignInAsync(user, false);
