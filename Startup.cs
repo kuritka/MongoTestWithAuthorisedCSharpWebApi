@@ -18,6 +18,8 @@ using MongoTest2.Data.Repositories;
 using MongoTest2.Data.Seeding;
 using MongoTest2.Infrastructure.Crypto;
 using Microsoft.AspNetCore.Http;
+using NLog.Extensions.Logging;
+
 
 namespace MongoTest2
 {
@@ -76,6 +78,12 @@ namespace MongoTest2
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+           // loggerFactory.AddConsole();
+            //env.ConfigureNLog("nlog.config");
+
+
+            loggerFactory.AddNLog();
 
             // global policy, if assigned here (it could be defined indvidually for each controller) 
             app.UseCors("CorsPolicy"); 

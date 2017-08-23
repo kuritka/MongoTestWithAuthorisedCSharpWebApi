@@ -7,6 +7,7 @@ using MongoTest2.Data.Entities;
 using Newtonsoft.Json;
 using MongoDB.Bson;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace MongoTest2.Controllers
 {
@@ -15,10 +16,12 @@ namespace MongoTest2.Controllers
     public class NotesController : Controller
     {
         private readonly INoteRepository _noteRepository;
+        private readonly  ILoggerFactory _loggerFactory;
 
-        public NotesController(INoteRepository noteRepository)
+        public NotesController(INoteRepository noteRepository, ILoggerFactory loggerFactory)
         {
             _noteRepository = noteRepository;
+            _loggerFactory = loggerFactory;
         }
 
         // GET: notes/notes
@@ -65,6 +68,23 @@ namespace MongoTest2.Controllers
         public void Delete(string id)
         {
             _noteRepository.RemoveNote(id);
+        }
+
+
+        [HttpGet("throw")]
+        public void Throw(string id)
+        {
+
+            var auditLog = _loggerFactory.CreateLogger("AuditLog");
+            auditLog.LogInformation("Message  For  AUDIT");
+
+            var systemLog = _loggerFactory.CreateLogger("SystemLog");
+            systemLog.LogError("MessageForSystemLog");
+            
+
+            var fileLog = _loggerFactory.CreateLogger("FileSystemLog");
+            fileLog.LogError("I didn't forgot  file! ");
+
         }
 
     }

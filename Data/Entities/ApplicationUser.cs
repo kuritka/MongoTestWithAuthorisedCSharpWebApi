@@ -27,8 +27,8 @@ namespace MongoTest2.Data.Entities
         {
             set
             {
-                PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
-                this.PasswordHash = hasher.HashPassword(this, value);
+      //          PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
+      //          this.PasswordHash = hasher.HashPassword(this, value);
                 _password = value;
             }
             get
